@@ -1,0 +1,26 @@
+<div class="main posts-new">
+  <div class="container">
+    <h1 class="form-heading">投稿する</h1>
+    <%= form_with url:posts_create_path, local: true do |f| %>
+      <div class="form">
+        <div class="form-body">
+          <% @post.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
+          <p>タイトル</p>
+          <input name="content">
+            <%= @post.content %>
+            <p>コメント</p>
+              <textarea name="comment"><%= @post.comment %></textarea>
+          <div class="field">
+            <%= f.label :video %>
+            <%= f.file_field :video, :accept => 'video/*' %>
+          </div>
+          <input type="submit" value="投稿">
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

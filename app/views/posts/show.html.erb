@@ -1,0 +1,40 @@
+<div class="main posts-show">
+  <div class="show-container">
+    <div class="posts-show-item">
+      <p>
+        <%= @post.content %>
+      </p>
+        <div class="post-time">
+          投稿日時：<%= @post.created_at %>
+        </div>
+          <div class="post-comment"><%= @post.comment %></div>
+            <div class="video">
+              <%= link_to @post.video_url.to_s do %>
+                <%= video_tag(@post.video.to_s, height: "100%", width: "100%", controls: true) %>
+                <% end %>
+            </div>
+              <div class="post-user-name">
+                <img src="<%= "/user_images/#{@user.image_name}" %>">
+                  <%= link_to(@user.name, "/users/#{@user.id}") %>
+                <div class=post-likes>
+                  <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
+                    <%= link_to("/likes/#{@post.id}/destroy", {method: "post"}) do %>
+                      <span class="fa fa-heart like-btn-unlike"></span>
+                    <% end %>
+                  <% else %>
+                    <%= link_to("/likes/#{@post.id}/create", {method: "post"}) do %>
+                      <span class="fa fa-heart like-btn"></span>
+                    <% end %>
+                  <% end %>
+                    <%= @likes_count %>
+                </div>
+          </div>
+      <% if @post.user_id == @current_user.id %>
+        <div class="post-menus">
+          <%= link_to("編集", "/posts/#{@post.id}/edit") %>
+          <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
