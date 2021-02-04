@@ -9,13 +9,13 @@
           </div>
         <% end %>
 
-        <%= form_tag("/login") do %>
-          <p>メールアドレス</p>
-          <input name="email" value="<%= @email %>">
-          <p>パスワード</p>
-          <input type="password" name="password" value="<%= @password %>">
-          <input type="submit" value="ログイン">
-        <% end %>
+      <%= form_with url:login_path, method: :post, local: true do |f| %>
+        <p>メールアドレス</p>
+          <%= f.text_field :email %>
+            <p>パスワード</p>
+              <%= f.password_field :password %>
+                <%= f.submit "ログイン" %>
+      <% end %>
       </div>
     </div>
   </div>
